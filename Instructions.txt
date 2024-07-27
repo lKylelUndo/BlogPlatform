@@ -1,0 +1,23 @@
+Simple Blogging Platform
+
+Frontend (jQuery): Develop a blogging platform where users can write, edit, and delete blog posts. 
+Use jQuery to handle blog post interactions and dynamic updates.
+
+Backend (PHP): Manage blog post data, including CRUD operations, and store posts in a database. 
+Implement user authentication if needed for managing posts.
+
+CREATE TABLE posts (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE comments (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    post_id INT(11) NOT NULL,
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+);
+

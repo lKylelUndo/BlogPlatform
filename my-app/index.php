@@ -11,15 +11,15 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <h1 class="text-center fs-2 mt-3">Hi Blog Welcome To My Guys!</h1>
 
-    <form id="blogForm" class="container mt-3 bg-light shadow-lg p-5 rounded">
+    <form id="blogForm" class="container bg-light shadow-lg p-5 rounded">
+        <h1 class="text-center fs-2 mt-3">Hi Blog Welcome To My Guys!</h1>
         <input id="title" name="title" class="form-control w-50 fs-5 fw-semibold" type="text" placeholder="Titolo...">
         <input id="content" name="content" class="form-control w-50 fw-semibold mt-3" type="text" placeholder="Kaibigan anong nasa isip mo?">
         <button class="mt-3 btn btn-primary">Submit</button>
     </form>
 
-    <div id="blog-section" class="container mt-5">
+    <div id="blog-section" class="container">
         
     </div>
 
@@ -49,10 +49,27 @@
                     }
                 });
 
-                // Optionally clear form fields
                 $("#title").val("");
                 $("#content").val("");
             });
+
+            $(document).on("submit","#commentForm", function(e) {
+                e.preventDefault();
+
+                let postId = $(this).find("input[name='post_id']").val();
+                let commentData = $(this).find("input[name='comment']").val();
+
+                $.ajax({
+                    url: "includes/comment_handler.php",
+                    type: "POST",
+                    data: {comment: commentData, post_id: postId},
+                    success: function(response) {
+                        loadBlogs();
+                    }
+                })
+
+                $("#comment").val("");
+            })
 
             function loadBlogs() {
                 $.ajax({
@@ -66,7 +83,6 @@
 
             $(document).on("click", "#delete-btn", function() {
                 let titleId = $(this).data("title-id");
-                alert(titleId);
 
                 $.ajax({
                     url: "includes/delete_blog.php",
@@ -89,7 +105,7 @@
                 let blogContent = $("#content-section").text().trim();
 
                 blogElement.html(`
-                    <input type="text" class="edit-title-input form-control" value="${blogTitle}">
+                    <input type="text" class="edit-title-input form-control fs-5 fs-semibold" value="${blogTitle}">
                     <input type="text" class="edit-content-input form-control mt-3" value="${blogContent}">
                     <button class="save-btn btn btn-primary container mt-3">Save</button>
                 `);

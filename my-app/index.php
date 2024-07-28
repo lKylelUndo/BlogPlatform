@@ -13,8 +13,8 @@
 <body>
 
     <form id="blogForm" class="container bg-light shadow-lg p-5 rounded">
-        <h1 class="text-center fs-2 mt-3">Hi Blog Welcome To My Guys!</h1>
-        <input id="title" name="title" class="form-control w-50 fs-5 fw-semibold" type="text" placeholder="Titolo...">
+        <h1 class="text-center fs-2">Hi Blog Welcome To My Guys!</h1>
+        <input id="title" name="title" class="form-control w-50 fs-5 fw-semibold mt-4" type="text" placeholder="Titolo...">
         <input id="content" name="content" class="form-control w-50 fw-semibold mt-3" type="text" placeholder="Kaibigan anong nasa isip mo?">
         <button class="mt-3 btn btn-primary">Submit</button>
     </form>

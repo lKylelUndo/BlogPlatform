@@ -19,7 +19,22 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                         echo "</div>";
                     
                         echo "<p id='content-section' class='fs-5 mt-2'>".htmlspecialchars($result['content'])."</p>";
-            
+                        echo "<hr>";
+                        // Fetch comments for this post
+                        $commentQuery = "SELECT * FROM comments WHERE post_id = :post_id";
+                        $commentStmt = $pdo->prepare($commentQuery);
+                        $commentStmt->execute([':post_id' => $result['id']]);
+                        $comments = $commentStmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        if (!empty($comments)) {
+                            echo "<h5>Comments:</h5>";
+                            foreach($comments as $comment) {
+                                echo "<p class='fs-5 mt-2'>".htmlspecialchars($comment['comment'])."</p>";
+                            }
+                        } else {
+                            echo "<p class='fs-5 mt-2'>No comments yet.</p>";
+                        }
+
                         echo "<p id='comment-section' class='bg-light  rounded p-3'></p>";
             
                         echo "<form id='commentForm' class='mt-3'>";
@@ -36,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
         $pdo = null;
         $stmt = null;
+        $commentStmt = null;
 
 
     } catch (\Throwable $th) {

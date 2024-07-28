@@ -11,19 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         
         if (!empty($results)) {
             foreach($results as $result) {
-                echo "<div class='shadow p-4 mt-4'>";
-                    echo "<div class='d-flex align-items-center justify-content-between'>";
-                    echo "<h3 class=''>".htmlspecialchars($result['title'])."</h3>" . "<span>" . "<i data-title-id='".$result["id"]. "'id='edit-btn' class='bi bi-pencil-square fs-5 me-3'></i>" . "<span>" . "<span>" . "<i class='bi bi-trash text-danger fs-5'></i>" . "<span>";
-                echo "</div>";
-                  
-                    echo "<p class=''>".htmlspecialchars($result['content'])."</p>";
+                echo "<div>";
+                    echo "<div class='shadow p-4 mt-4'>";
+                        echo "<div class='d-flex align-items-center justify-content-between'>";
+                        echo "<h3 id='title-section' class='title-section'>".htmlspecialchars($result['title'])."</h3>" . "<span>" . "<i data-title-id='".$result["id"]. "'id='edit-btn' class='bi bi-pencil-square fs-5 me-3'></i>" . "<span>" . "<span>" . "<i data-title-id='".$result["id"]."'id='delete-btn' class='bi bi-trash text-danger fs-5'></i>" . "<span>";
+                    echo "</div>";
+                    
+                        echo "<p id='content-section'>".htmlspecialchars($result['content'])."</p>";
 
-                    echo "<form id='commentForm' class='mt-3'>";
-                        echo "<input id='comment' name='comment' class='form-control' type='text' placeholder='Comments...'/>";
-                        echo "<button class='btn btn-outline-primary mt-3'>Comment Out</button>";
-                    echo "</form>";
+                        echo "<form id='commentForm' class='mt-3'>";
+                            echo "<input id='comment' name='comment' class='form-control' type='text' placeholder='Comments...'/>";
+                            echo "<button class='btn btn-outline-primary mt-3'>Comment Out</button>";
+                        echo "</form>";
 
-                    echo "<p id='comment-section'></p>";
+                        echo "<p id='comment-section'></p>";
                 echo "</div>";
             }
         } else {

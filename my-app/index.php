@@ -63,12 +63,48 @@
                     }
                 })
             };
-            loadBlogs();
+
+            $(document).on("click", "#delete-btn", function() {
+                let titleId = $(this).data("title-id");
+                alert(titleId);
+            })
 
             $(document).on("click", "#edit-btn", function() {
                 let titleId = $(this).data("title-id");
-                alert(titleId);
+                let blogElement = $(this).closest(".shadow.p-4");
+
+                let blogTitle = $("#title-section").text().trim();
+                let blogContent = $("#content-section").text().trim();
+
+                blogElement.html(`
+                    <input type="text" class="edit-title-input form-control" value="${blogTitle}">
+                    <input type="text" class="edit-content-input form-control mt-3" value="${blogContent}">
+                    <button class="save-btn btn btn-primary container mt-3">Save</button>
+                `);
+
+                $(".edit-title-input").focus();
+                $(".edit-content-input").focus();
+
+                blogElement.on("click", ".save-btn", function() {
+                    let editedTitle = blogElement.find(".edit-title-input").val().trim();
+                    let editedContent = blogElement.find(".edit-content-input").val().trim();
+
+                        $.ajax({
+                        url: "includes/edit_title_content.php",
+                        type: "POST",
+                        data: {titleId, editedTitle, editedContent},
+                        success: function(data) {
+                            loadBlogs();
+                        },
+                        error: function(xhr, status, error) {
+                            alert("Error updating: " + error);
+                        }
+
+                    })
+                })
+
             });
+            loadBlogs();
             
         });
     </script>

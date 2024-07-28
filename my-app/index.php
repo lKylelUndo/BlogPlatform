@@ -67,6 +67,18 @@
             $(document).on("click", "#delete-btn", function() {
                 let titleId = $(this).data("title-id");
                 alert(titleId);
+
+                $.ajax({
+                    url: "includes/delete_blog.php",
+                    type: "GET",
+                    data: {titleId},
+                    success: function(data) {
+                            loadBlogs();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error updating: " + error);
+                    }
+                })
             })
 
             $(document).on("click", "#edit-btn", function() {
